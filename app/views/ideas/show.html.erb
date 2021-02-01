@@ -3,9 +3,11 @@
     <p><%= @idea.description%></p>  
     <small><%= time_ago_in_words(@idea.created_at)%> ago</small></small>
     <div>
+    <% if can? :crud, @idea%>
         <%= link_to("Edit", edit_idea_path(@idea.id), class:"btn btn-outline-primary")%>
-
+    <%end%>
+     <% if can? :crud, @idea%>
         <%= link_to("Delete", idea_path(@idea.id), method: :delete, class:"btn btn-outline-primary")%>
-
+    <%end%>
     </div>
 </div>

@@ -1,6 +1,7 @@
 class IdeasController < ApplicationController
-
+    before_action :authenticate_user!, except: [:index, :show]
     before_action :find_idea, only:[:show, :edit, :update, :destroy]
+
 
     def new
         @idea = Idea.new
@@ -8,23 +9,29 @@ class IdeasController < ApplicationController
 
     def create
         @idea = Idea.new idea_params
+        @idea.user = current_user
         if @idea.save
-            redirect_to root_path
+            flash[:notice]="Idea created successfully."
+            redirect_to idea_path(@idea.id)
         else
             render :new
         end
     end
 
     def index
-        @ideas = Idea.all.order(created_at: :desc) 
+        @ideas = Idea.all.order(created_at: :desc)
     end
 
     def edit
-
+        if can?(:edit, @idea)
+            render :edit
+        else
+            redirect_to idea_path(@idea)
+        end
     end
 
     def show
-        redirect_to idea_path(@idea.id)
+
     end
 
     def update
@@ -36,11 +43,13 @@ class IdeasController < ApplicationController
     end
 
     def destroy
-        if @idea.destroy
-            flash[:notice] = "The  idea has been destroyed"
+        if can?(:delete, @idea)
+            @idea.destroy
+            flash[:alert] = "The  idea has been destroyed"
             redirect_to ideas_path
         else
-            render :show
+            flash[:alert]="Access Denied" 
+            redirect_to idea_path(@idea.id)
         end
     end
 
@@ -53,5 +62,10 @@ class IdeasController < ApplicationController
 
     def find_idea
         @idea = Idea.find_by_id params[:id]
+    end
+
+
+    def authorize_user!
+        redirect_to root_path, alert: 'Not Authorized' unless can?(:crud, @idea)
     end
 end
