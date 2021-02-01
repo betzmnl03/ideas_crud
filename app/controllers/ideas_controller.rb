@@ -20,6 +20,7 @@ class IdeasController < ApplicationController
 
     def index
         @ideas = Idea.all.order(created_at: :desc)
+       
     end
 
     def edit
@@ -31,7 +32,9 @@ class IdeasController < ApplicationController
     end
 
     def show
-
+        @reviews = @idea.reviews.order(created_at: :DESC)
+        @review = Review.new
+     
     end
 
     def update
@@ -54,6 +57,9 @@ class IdeasController < ApplicationController
     end
 
 
+    def liked
+        @ideas=current_user.liked_ideas.all_with_review_counts.order(created_at: :desc)
+    end
 
     private
     def idea_params

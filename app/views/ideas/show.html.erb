@@ -10,4 +10,28 @@
         <%= link_to("Delete", idea_path(@idea.id), method: :delete, class:"btn btn-outline-primary")%>
     <%end%>
     </div>
+
+        <div class="mt-4">
+        <%= form_with model: [@idea, @review], :class=>"form-group", local:true do |f|%>
+            <h4><%= f.label:Review%></h4>
+            <div class="input-group mb-2">
+                <%= f.text_area:body,cols:90,rows:5,  placeholder: "What's on your mind?",  :class=>'form-control', :required=>true%>
+            </div>
+            <div>
+                <%= f.submit :class=>"btn btn-outline-primary"%>
+            </div>
+        <%end%>
+
+    </div>
+
+        <% @reviews.each do |review|%>
+            <p class="d-flex flex-column mt-4"><%= review.body%>
+            <small>Reviewed by: <%= review.user&.full_name || "Deleted"%>
+            <small><%= time_ago_in_words(review.created_at)%> ago </small>
+            <% if (can? :crud, review)%>
+               • &nbsp; <%= link_to("Delete", idea_review_path(@idea.id, review.id), method: :delete)%>
+            <%end%>
+            </small>
+             </p>
+    <%end%>
 </div>

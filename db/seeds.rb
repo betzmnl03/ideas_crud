@@ -5,8 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-
+Like.delete_all
+Review.delete_all
 Idea.delete_all
 User.delete_all
 
@@ -46,12 +46,24 @@ NUM_IDEAS.times do
 )
 if p.valid?
 
+    p.reviews = rand(2..10).times.map do
+        Review.new(
+            body: Faker::TvShows::GameOfThrones.quote,
+            created_at: Faker::Date.between(from: created_at, to: Date.today),
+            user: users.sample
+    )
+    end
+    p.likers=users.shuffle.slice(0,rand(users.count))
+
     puts p.errors.full_messages
 end
 end
 
 ideas = Idea.all
+reviews = Review.all
 
 puts Cowsay.say("Generated #{ideas.count} ideas", :dragon)
 puts Cowsay.say("Generated #{users.count} users.",:beavis)
 puts Cowsay.say("Login with  #{super_user.email} and password:#{PASSWORD}.",:koala)
+puts Cowsay.say("Generated #{reviews.count} reviews", :frogs)
+puts Cowsay.say("Generated #{Like.count} Likes.",:bunny)

@@ -1,13 +1,24 @@
 <div class="container">
 <% @ideas.each do |idea|%>
-<div class="card m-4">
-    <div class="card-body">
-    <h2><%= link_to(idea.title, idea_path(idea.id))%></h2>
-    <p><%= idea.description%></p>
-    <p>By <%= idea.user&.full_name%></p>
+    <div class="card m-4">
+        <div class="card-body">
+            <h2><%= link_to(idea.title, idea_path(idea.id))%></h2>
+            <p><%= idea.description%></p>
+            <div class="d-flex justify-content-between">
+                <span>By <%= idea.user&.full_name%>
+                    <% @like=idea.likes.find_by(user: current_user)%>
+                        <% if @like.present?%>
+                            <%= link_to "Liked", like_path(@like),method: :delete, class:"btn btn-outline-primary"%>
+                        <%else%>
+                            <%= link_to "Like", idea_likes_path(idea), method: :post, class:"btn btn-outline-primary"%>
+                        <%end%>
+                </span> 
+                <div>
+                  Likes: <%= idea.likes.count%>
+                </div>
+            </div> 
+        </div>  
+
     </div>
-</div>
 <%end%>
-
-
 </div>

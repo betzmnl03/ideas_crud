@@ -2,6 +2,13 @@ class User < ApplicationRecord
 
 
     has_many :ideas, dependent: :nullify
+    has_many :reviews, dependent: :nullify
+
+
+    # many to many association
+    has_many :likes
+    has_many :liked_ideas, through: :likes, source: :idea
+
 
     validates :first_name, presence: true
     validates :last_name, presence: true
