@@ -1,22 +1,27 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between border-btm border-dark">
 <div class="navbar-brand">
-
-    <%= image_tag("logo.jpeg", width:"32",class:"image ml-4")%>
-    <div>
-    <%= link_to("Idea Factory", root_path)%>
+        <div>
+        <%= image_tag("logo.png", width:"40",class:"image ml-4")%>
+        </div>
+        <div>
+        <%= link_to("Idea Factory", root_path)%>
+        </div>
+</div>
+   <div class="d-flex flex-column">
+        <div class="mt-4 mb-4">
+                <% if user_signed_in? %>
+                    Hello <%= current_user.full_name %> 
+                    |
+                    <%= link_to "Sign Out", session_path, method: :delete,
+                    data: {confirm: 'Are you sure you want to log out?'}
+                    %>
+                <% else %>
+                    <%= link_to "Login", new_session_path %> |
+                    <%= link_to "Sign Up", new_user_path %>
+                <% end %>
+        </div>
+        <div class="align-self-end mr-2">
+            <%= link_to("New Idea", new_idea_path, class:"btn btn-outline-primary new-idea")%>
+        </div>
     </div>
-</div>
-<div>
-<%= link_to("New Idea", new_idea_path, class:"btn btn-outline-dark shadow-lg")%>
-        <% if user_signed_in? %>
-        Hello <%= current_user.full_name %> 
-        |
-        <%= link_to "Logout", session_path, method: :delete,
-        data: {confirm: 'Are you sure you want to log out?'}
-         %>
-        <% else %>
-        <%= link_to "Login", new_session_path %> |
-        <%= link_to "Sign Up", new_user_path %>
-        <% end %>
-</div>
 </nav>
