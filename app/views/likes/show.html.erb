@@ -1,0 +1,14 @@
+<div class="container m-4 min-height">
+<%if @likes.count >0%>
+<h1>Members that have liked this idea:</h1>
+<ol>
+    <%@likes.each do |like|%>
+    <li>
+        <p><%= like.full_name%></p>
+    </li>
+    <%end%>
+<ol>
+<%else%>
+<h1>No one has liked this idea</h1>
+<%end%>
+</div>

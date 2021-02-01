@@ -23,4 +23,9 @@ class LikesController < ApplicationController
         end
         redirect_to root_path
     end
+
+    def show
+        idea =Idea.find params[:id] 
+        @likes = idea.likers.order("likes.created_at DESC")  
+    end
 end

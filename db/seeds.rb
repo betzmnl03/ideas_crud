@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Join.delete_all
 Like.delete_all
 Review.delete_all
 Idea.delete_all
@@ -54,6 +55,7 @@ if p.valid?
     )
     end
     p.likers=users.shuffle.slice(0,rand(users.count))
+    p.joiners=users.shuffle.slice(0,rand(users.count))
 
     puts p.errors.full_messages
 end
@@ -67,3 +69,4 @@ puts Cowsay.say("Generated #{users.count} users.",:beavis)
 puts Cowsay.say("Login with  #{super_user.email} and password:#{PASSWORD}.",:koala)
 puts Cowsay.say("Generated #{reviews.count} reviews", :frogs)
 puts Cowsay.say("Generated #{Like.count} Likes.",:bunny)
+puts Cowsay.say("Generated #{Join.count} Joins.",:bunny)

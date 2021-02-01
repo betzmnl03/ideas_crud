@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
 root "ideas#index"
 resources :ideas do
-  resources :likes, shallow: true, only: [:create, :destroy]
+  resources :likes, shallow: true, only: [:show, :create, :destroy]
   get :liked, on: :collection
-  resources :joins, shallow: true, only: [:create, :destroy]
+  resources :joins, shallow: true, only: [:show, :create, :destroy]
   get :joined, on: :collection
   resources :reviews
 end

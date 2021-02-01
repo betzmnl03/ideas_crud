@@ -22,4 +22,13 @@ class JoinsController < ApplicationController
         end
         redirect_to root_path
     end
+
+    def index
+        
+    end
+
+    def show
+        idea =Idea.find params[:id] 
+        @joins = idea.joiners.order("joins.created_at DESC")  
+    end
 end

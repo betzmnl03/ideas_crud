@@ -19,10 +19,17 @@
                             <%= link_to "Like", idea_likes_path(idea), method: :post, class:"btn btn-outline-primary ml-4"%>
                     <%end%>
                 </span> 
+                <% if user_signed_in?%>
                 <div>
-                  Members: <%= idea.joins.count%> |
-                  Likes: <%= idea.likes.count%>
+                  <%= link_to "Members:", join_path(idea)%><%= idea.joins.count%> |
+                  <%= link_to "Likes:", like_path(idea)%><%= idea.likes.count%>
                 </div>
+                <%else%>
+                <div>
+                 Members: <%= idea.joins.count%> |
+                  Likes:<%= idea.likes.count%>
+                </div>
+                <%end%>
             </div> 
     </div>
 <%end%>
