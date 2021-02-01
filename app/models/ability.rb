@@ -49,5 +49,13 @@ class Ability
     can(:destroy, Like) do |like|
       like.user == user
     end
+
+
+    can(:join, Idea) do |idea|
+      user.persisted? && idea.user != user
+    end
+    can(:destroy, Join) do |join|
+      join.user == user
+    end
   end
 end

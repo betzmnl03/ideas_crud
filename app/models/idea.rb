@@ -9,8 +9,11 @@ class Idea < ApplicationRecord
 
 
     # many to many association
-    has_many :likes
+    has_many :likes, dependent: :destroy
     has_many :likers, through: :likes  , source: :user
+
+    has_many :joins, dependent: :destroy
+    has_many :joiners, through: :joins  , source: :user
 
 
     def self.all_with_review_counts

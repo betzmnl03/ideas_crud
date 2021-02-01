@@ -6,15 +6,21 @@
             <p><%= idea.description%></p>
             <div class="d-flex justify-content-between mb-4">
                 <span class="ml-2">By <%= idea.user&.full_name%>
+                    <% @join=idea.joins.find_by(user: current_user)%>
+                        <% if @join.present?%>
+                            <%= link_to "Joined", join_path(@join),method: :delete, class:"btn btn-primary ml-4"%>
+                        <%else%>
+                            <%= link_to "Join", idea_joins_path(idea), method: :post, class:"btn btn-outline-primary ml-4"%>
+                        <%end%>
                     <% @like=idea.likes.find_by(user: current_user)%>
                         <% if @like.present?%>
                             <%= link_to "Liked", like_path(@like),method: :delete, class:"btn btn-primary ml-4"%>
                         <%else%>
                             <%= link_to "Like", idea_likes_path(idea), method: :post, class:"btn btn-outline-primary ml-4"%>
-                        <%end%>
+                    <%end%>
                 </span> 
                 <div>
-                  Reviews: <%= idea.reviews.count%> |
+                  Members: <%= idea.joins.count%> |
                   Likes: <%= idea.likes.count%>
                 </div>
             </div> 

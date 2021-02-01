@@ -5,6 +5,8 @@ root "ideas#index"
 resources :ideas do
   resources :likes, shallow: true, only: [:create, :destroy]
   get :liked, on: :collection
+  resources :joins, shallow: true, only: [:create, :destroy]
+  get :joined, on: :collection
   resources :reviews
 end
 

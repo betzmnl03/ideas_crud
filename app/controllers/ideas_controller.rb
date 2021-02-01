@@ -19,8 +19,7 @@ class IdeasController < ApplicationController
     end
 
     def index
-        @ideas = Idea.all.all_with_review_counts.order(updated_at: :desc)
-       
+        @ideas = Idea.all.all_with_review_counts.order(updated_at: :desc)       
     end
 
     def edit
@@ -59,6 +58,10 @@ class IdeasController < ApplicationController
 
     def liked
         @ideas=current_user.liked_ideas.all_with_review_counts.order(created_at: :desc)
+    end
+
+    def joined
+        @ideas=current_user.joined_ideas.all_with_review_counts.order(created_at: :desc)
     end
 
     private

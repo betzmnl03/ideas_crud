@@ -9,6 +9,8 @@ class User < ApplicationRecord
     has_many :likes
     has_many :liked_ideas, through: :likes, source: :idea
 
+    has_many :joins
+    has_many :joined_ideas, through: :joins, source: :idea
 
     validates :first_name, presence: true
     validates :last_name, presence: true
