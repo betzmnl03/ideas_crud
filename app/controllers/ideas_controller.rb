@@ -19,7 +19,7 @@ class IdeasController < ApplicationController
     end
 
     def index
-        @ideas = Idea.all.order(created_at: :desc)
+        @ideas = Idea.all.all_with_review_counts.order(updated_at: :desc)
        
     end
 

@@ -3,7 +3,7 @@
     <div class='shadow-sm p-3 mb-5 bg-white rounded col-sm-8'>
         <%= form_with model: @user, local:true do |f|%>
         <% if @user.errors.any? %>
-        <p>
+        <p class="text-danger">
             <%= @user.errors.full_messages.join(', ')%>
         </p>
         <% end %>
