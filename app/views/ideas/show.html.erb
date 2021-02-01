@@ -1,0 +1,11 @@
+<div class="container">
+    <h1><%= @idea.title%></h1>
+    <p><%= @idea.description%></p>  
+    <small><%= time_ago_in_words(@idea.created_at)%> ago</small></small>
+    <div>
+        <%= link_to("Edit", edit_idea_path(@idea.id), class:"btn btn-outline-primary")%>
+
+        <%= link_to("Delete", idea_path(@idea.id), method: :delete, class:"btn btn-outline-primary")%>
+
+    </div>
+</div>
