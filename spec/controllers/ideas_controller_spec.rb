@@ -107,7 +107,7 @@ RSpec.describe IdeasController, type: :controller do
             #then
             expect(response).to render_template(:index)
         end
-        it 'assign an instance variable @idea which contains all created job posts' do
+        it 'assign an instance variable @idea which contains all created ideas ' do
             # Given
             idea_1=FactoryBot.create(:idea)
             idea_2=FactoryBot.create(:idea)
@@ -159,7 +159,7 @@ RSpec.describe IdeasController, type: :controller do
                 session[:user_id]=FactoryBot.create(:user)
             end
             context "with valid parameters" do
-                it "update the job post record with new attributes" do
+                it "update the idea record with new attributes" do
 
                     #when
                     new_title = "#{@idea.title} plus some changes!!!"
